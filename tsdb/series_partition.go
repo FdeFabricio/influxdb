@@ -442,6 +442,8 @@ func (p *SeriesPartition) activeSegment() *SeriesSegment {
 }
 
 func (p *SeriesPartition) insert(key []byte, typ models.FieldType) (id SeriesIDTyped, offset int64, err error) {
+	fmt.Printf("setting %q to %d\n", key, typ)
+
 	id = NewSeriesID(p.seq).WithType(typ)
 	offset, err = p.writeLogEntry(AppendSeriesEntry(nil, SeriesEntryInsertFlag, id, key))
 	if err != nil {
